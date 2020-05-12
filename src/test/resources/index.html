@@ -1,0 +1,46 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+</head>
+<body>
+
+<table>
+    <tr>
+        <td>列表配置: 如果两个都选择。可以通过url 传filterMode 来区分 (1普通 2京东)</br></td>
+    </tr>
+    <tr>
+        <td></td>
+    </tr>
+</table>
+<table>
+    <tr>
+        <td>package cn.dreamit.p1001.functions;import cn.dreamit.dreamweb.expr.constant.ExprConstants;import
+            cn.dreamit.p1000.module.convert.constant.ConvertConstant;import
+            cn.dreamit.p1000.module.convert.expr.ConvertFunction;import
+            cn.dreamit.p1000.module.convert.functions.BaseConvertFunction;import
+            cn.dreamit.p1000.module.userinfo.entity.User;import org.springframework.stereotype.Component;import
+            xsf.IContextDictionary;import javax.servlet.http.HttpServletRequest;import java.util.HashMap;import
+            java.util.Map;/** * 类别转换自定义函数 * @Author: taolb * @Date: 2020/3/2 21:22
+            */@Component("customConvertFun_项目id")public class CustomConvertFunction implements BaseConvertFunction {
+            @Override public Map
+            <String
+            , ConvertFunction> getCustomFunctions() { Map
+            <String
+            , ConvertFunction> functions = new HashMap<>() ; /** * params 上下文数据 * args 函数本身参数 */
+            functions.put("XxxConvert", (args,params)-> { //上下文字典 IContextDictionary dictionary = (IContextDictionary)
+            params.get(ExprConstants.DICT_KEY) ; //request HttpServletRequest request = (HttpServletRequest)
+            params.get(ExprConstants.REQUEST_KEY) ; //用户信息 User user = (User) params.get(ConvertConstant.USER_KEY) ;
+            //参数 String param1 = (String) args.get(0); //返回值:字符串 、 com.alibaba.fastjson.JSONObject (格式对应元数据中字段标识 如
+            {"text":文本",value":"值"}) return "测试"; }) ; return functions; }}</br></td>
+    </tr>
+    <tr>
+        <td></td>
+    </tr>
+    <tr>
+        <td></td>
+    </tr>
+</table>
+</body>
+</html>

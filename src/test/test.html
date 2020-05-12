@@ -1,0 +1,1005 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+</head>
+<body>
+
+<table>
+    <tr>
+        <td>http://localhost:8080/DreamWeb/tool/debug/info.jsp</td>
+    </tr>
+</table>
+<table>
+    <tr>
+        <td>\dreamit-web\src\main\resources\config\log4j.properties (源码模式)</br>
+            \DreamWeb\WEB-INF\classes\config\log4j.properties (部署模式)
+        </td>
+    </tr>
+</table>
+<table>
+    <tr>
+        <td>log4j.rootLogger = ERROR , stdout , dailyFile</br>......</td>
+    </tr>
+</table>
+<table>
+    <tr>
+        <td>\DreamFlow\config\log4j.properties (部署模式)</td>
+    </tr>
+</table>
+<table>
+    <tr>
+        <td>MySQL查看连接数示例：</br>SHOW VARIABLES LIKE 'max_connections';</td>
+    </tr>
+</table>
+<table>
+    <tr>
+        <td>ALTER TABLE FW ADD INDEX FW_WH_QUERY (WH, WH_RULEID , WH_PERIOD );</br>ALTER TABLE G_PNODES ADD INDEX IX_PID
+            (PID);</br>ALTER TABLE G_PNODES ADD INDEX IX_G_PNODES_INFO_ID (INFO_ID);
+        </td>
+    </tr>
+</table>
+<table>
+    <tr>
+        <td>/**</br> * @param paramObject 保存参数</br> */</br>function beforeSaveForm(paramObject){</br>
+            console.log("beforeSaveForm:" , paramObject);</br>    //do something</br>}
+        </td>
+    </tr>
+</table>
+<table>
+    <tr>
+        <td>/**</br>  * @param result 保存后的状态值。取值范围:DSF.SaveStatus</br>  */</br>function afterSaveForm(result){</br>
+            if(result == DSF.SaveStatus.Success){</br>//do something</br>}</br>}
+        </td>
+    </tr>
+</table>
+<table>
+    <tr>
+        <td>/**</br> * @param paramObject 保存参数</br> * @param saveCallback 保存回调</br> */</br>function saveForm(paramObject
+            , callSave){</br>var condition = 0;</br>//do something</br>if(condition){</br>    callSave(true);</br>
+            }else{</br>    callSave(false);</br>}</br>}
+        </td>
+    </tr>
+</table>
+<table>
+    <tr>
+        <td>/**</br> * 表单渲染完成</br> */</br>function formReady(){</br>//do something</br>}</td>
+    </tr>
+</table>
+<table>
+    <tr>
+        <td>/**</br> *@param $subform : 子表jQuery对象</br> *@param itemInfo : {primaryId : ""} 已删除的子表主键</br> */</br>
+            function afterSubFormItemDelete($subform , itemInfo){</br>    //do something</br>}
+        </td>
+    </tr>
+</table>
+<table>
+    <tr>
+        <td>/**</br> * @param $subform 子表jQuery对象</br> * @param templateArray 新增的子表行数组</br> */</br>function
+            afterSubFormItemAddSuccess($subform , templateArray){</br>    //do something</br>}
+        </td>
+    </tr>
+</table>
+<table>
+    <tr>
+        <td>DSF.Control.SubForm.load(</br>subformData , </br>{subformId: "C-LEAVE-0012"}</br>);</td>
+    </tr>
+</table>
+<table>
+    <tr>
+        <td>var subformData = [{</br> "C-LEAVE-0012": {</br>     "foreign": "19011216431624Tk531RYYdo5U3w2jj",</br>
+            "value": "190112164343Vfxa6QUJSZ7ci6J0Oh8"</br> },</br>"C-LEAVE-0014": {</br>     "value": "1"</br> },</br>
+            "C-LEAVE-0015": {</br>     "value": "2019-01-14"</br> },</br> "C-LEAVE-0016": {</br>     "value":
+            "2019-01-15"</br> }</br>}];
+        </td>
+    </tr>
+</table>
+<table>
+    <tr>
+        <td>function onCreateCheckNodesRow(target, type, node){</br>}</td>
+    </tr>
+</table>
+<table>
+    <tr>
+        <td>function onBeforeCodeSelectCallback(target , data , opts , dataList){</br>}</td>
+    </tr>
+</table>
+<table>
+    <tr>
+        <td>opts.callback(data.text,data.value, dataList, extra)</td>
+    </tr>
+</table>
+<table>
+    <tr>
+        <td>function userSelectCallback(target,text,ids,schema){</br>}</td>
+    </tr>
+</table>
+<table>
+    <tr>
+        <td>function userSelectCallback(target,text,ids,schema){</br>    if(target.attr("x-metadata") ===
+            "C-MEETING-TOPIC-0003"){</br>        DSF.Control.User.Extend["C-MEETING-TOPIC-0004"] </br>= {opts :
+            {extendOpt : {customRoot : ids}} };</br></br>        var $reportPerson =
+            target.parents(".x-subform-item")</br>.find("[x-metadata='C-MEETING-TOPIC-0004']");</br>        var xAttr =
+            $reportPerson.attr("x");</br>        var x = DSF.Utils.parseJSON(xAttr);</br>        if (x) {</br>
+            DSF.Control.User.initUser($reportPerson, x);</br>        }</br>    }</br>}
+        </td>
+    </tr>
+</table>
+<table>
+    <tr>
+        <td>元数据配置：</br></br>格式说明： 事件名:实现方法</br>如：监听文本框中如果有[]、【】替换成六角符号</br>{"type" : "text" , "value" :
+            "keyup:replaceSixCornerSign"}</br></br>function replaceSixCornerSign(target){ if(target){ var text =
+            target.val(); if(text){ text = text .replace(/\[/g,"〔").replace(/\]/g,"〕")
+            .replace(/【/g,"〔").replace(/】/g,"〕") ; target.val(text); } } }
+        </td>
+    </tr>
+</table>
+<table>
+    <tr>
+        <td>@Component("List_190316140427ei4dhLyKFj8xMKKXKHs")</br>public class List_190316140427ei4dhLyKFj8xMKKXKHs
+            extends BaseCustomList{</br>    public Map
+            <String
+            , String> view(Map
+            <String
+            , String> params){</br>        params.put(XFormConstants.VIEW, "1");</br>        params.put("result",
+            "true");</br>        return params;</br>    }</br>}
+        </td>
+    </tr>
+</table>
+<table>
+    <tr>
+        <td>
+            ../../ctrl/formControl/form?listId=190316140427ei4dhLyKFj8xMKKXKHs&method=view&moduleId=190316115452TEcLfcQBFJozNasHYrm&pk="
+            + pk
+        </td>
+    </tr>
+</table>
+<table>
+    <tr>
+        <td>@Component("List_190316140427ei4dhLyKFj8xMKKXKHs")</br>public class List_190316140427ei4dhLyKFj8xMKKXKHs
+            extends BaseCustomList{</br>@Override</br>public Boolean validate(User user, String pk, Map
+            <String
+            , String> params) {</br>return true;</br>}</br>}
+        </td>
+    </tr>
+</table>
+<table>
+    <tr>
+        <td>
+            ../../ctrl/formControl/form?listId=190316140427ei4dhLyKFj8xMKKXKHs&validateByList=1&moduleId=190316115452TEcLfcQBFJozNasHYrm&pk="
+        </td>
+    </tr>
+</table>
+<table>
+    <tr>
+        <td></br>参考平台web.xml</br></td>
+    </tr>
+</table>
+<table>
+    <tr>
+        <td>修改：WEB-INF/resource.xml</br>增加开关</br>
+            <Add Key="FORM_DESIGNER_START" Value="true"/>
+        </td>
+    </tr>
+</table>
+<table>
+    <tr>
+        <td>dreamit-web\src\main\resources\runtime\formdesigner\**</br></td>
+    </tr>
+</table>
+<table>
+    <tr>
+        <td>package cn.dreamit.p1001.functions;import cn.dreamit.dreamweb.expr.ExprUtils;import
+            cn.dreamit.dreamweb.expr.base.BaseCustomFunction;import
+            cn.dreamit.dreamweb.expr.constant.ExprConstants;import cn.dreamit.dreamweb.expr.eval.AbstractFunction;import
+            cn.dreamit.dreamweb.expr.eval.Expression;import cn.dreamit.dreamweb.expr.eval.Function;import
+            cn.dreamit.p1000.module.convert.constant.ConvertConstant;import
+            cn.dreamit.p1000.module.userinfo.entity.User;import org.springframework.stereotype.Component;import
+            xsf.IContextDictionary;import javax.servlet.http.HttpServletRequest;import java.util.HashMap;import
+            java.util.List;import java.util.Map;/** * 类别转换自定义函数 * @Author: taolb * @Date: 2020/3/2 21:22
+            */@Component(value="customFun_项目id")public class CustomXFormFunction implements BaseCustomFunction { /** *
+            返回所有自定义函数集合 * @return */ @Override public Map
+            <String
+            , Function> getCustomFunctions() { Map
+            <String
+            ,Function> functions = new HashMap<>(); functions.put("xxxFun",new AbstractFunction(){ @Override public
+            Object eval(List
+            <Expression> list) { IContextDictionary dictionary = (IContextDictionary)
+                ExprUtils.getScopeValue(getScope(), ExprConstants.DICT_KEY) ; HttpServletRequest request =
+                (HttpServletRequest) ExprUtils.getScopeValue(getScope(), ExprConstants.REQUEST_KEY); User user = (User)
+                ExprUtils.getScopeValue(getScope(),ConvertConstant.USER_KEY) ; //函数参数 String param =
+                list.get(0).toString() ; /返回值:字符串 、 com.alibaba.fastjson.JSONObject (格式对应元数据中字段标识对应：
+                {"text":文本",value":"值"}) return "返回值" ; } @Override public boolean isNaturalFunction() { return false; }
+                }); return functions ; }}</br>
+        </td>
+    </tr>
+</table>
+<table>
+    <tr>
+        <td>@Component</br>public class XForm_200306161200ITAdt719BWhTIwsep3w extends BaseCustomXForm {</br>
+            @Override</br>    public void beforeValidateXForm(String info, BusinessDataEntity formPostData, </br>
+            IContextDictionary dict, BusinessDataEntity redisData) {</br>
+            dict.put(XFormConstants.NOT_VAILD_METAS_KEY,</br>"B0003,C-GW-FW-0102");</br>    }</br>}
+        </td>
+    </tr>
+</table>
+<table>
+    <tr>
+        <td></td>
+    </tr>
+</table>
+<table>
+    <tr>
+        <td></br></td>
+    </tr>
+</table>
+<table>
+    <tr>
+        <td></td>
+    </tr>
+</table>
+<table>
+    <tr>
+        <td>
+            <div class="second-nav formtab"></br>
+                <div class="layui-tab layui-tab-brief" lay-filter="o-tab"></br>
+                    <ul class="layui-tab-title moduleUl"></br>    #set($num=1)</br>            #set($first = true)</br>
+                        #foreach($item in $tabs)</br>                #if($first)</br>
+                        <li class="layui-this" data-url="$contextPath/$item.pageUrl" data-reload="$!item.isReload"
+                            data-index="$num"></br>                #else</br>
+                        <li data-url="$contextPath/$item.pageUrl" data-reload="$!item.isReload" data-index="$num"></br>
+                            #end</br>                    $item.tabName</br>                </li>
+                        </br>                #set($first = false)</br>#set($num=$num + 1)</br>            #end</br></ul>
+                    </br>
+                    <div class="layui-tab-content"></br>    #set($num=1)</br>    #set($firstflag = true)</br>
+                        #foreach($item in $tabs)</br>
+                        <div class="layui-tab-item #if($firstflag)layui-show #end "></br>
+                            <iframe frameborder="0" class="subiframe" id="info"
+                            "$num" name="info" width="100%" height="100%"</br>src=""></iframe></br></div>
+                        </br>                #set($firstflag = false)</br>#set($num=$num + 1)</br>            #end</br>
+                    </div>
+                    </br>    </div>
+                </br></div>
+            </br>
+            <script type="text/javascript" src="$contextPath/p1000/module/formtab/resource/js/form-tab.js"></script>
+            </br>
+            <link rel="stylesheet" href="${contextPath}/xx/css/自定义样式-${portal_skin}.css">
+            </br></td>
+    </tr>
+</table>
+<table>
+    <tr>
+        <td>注册XForm_表单tab ID</br>import cn.dreamit.p1000.module.userinfo.entity.User;import
+            org.springframework.stereotype.Component;import xsf.IContextDictionary;@Component</br>//继承BaseCustomXForm
+            方法public class XForm_190415173554ZaI3tskmgyqdiziExA6 extends BaseCustomXForm { //xxx 就是隐藏条件内容 public boolean
+            xxx(User user, IContextDictionary dictionary){ //true 显示 false 隐藏 return true ; }}</br></td>
+    </tr>
+</table>
+<table>
+    <tr>
+        <td>自动从表单上继承所有参数</br>如果本身链接参数名称与表单参数名称一致，优先本链接参数</br>支持动态化 如fid=[pk] 将表单url的pk赋值给fid</br></td>
+    </tr>
+</table>
+<table>
+    <tr>
+        <td>import cn.dreamit.p1000.module.formtab.entity.FormTabItemEntity;import
+            cn.dreamit.p1000.module.xform.data.impl.BaseCustomXForm;import
+            org.springframework.stereotype.Component;import xsf.IContextDictionary;import
+            javax.servlet.http.HttpServletRequest;import java.util.List;@Component//继承BaseCustomXForm 方法public class
+            XForm_190415173554ZaI3tskmgyqdiziExA6 extends BaseCustomXForm { @Override //实现 initCustomForm 方法 public void
+            if(object != null && object instanceof List){ List
+            <FormTabItemEntity> accessTabItems = (List) object ; //可以动态增、删 tab项 FormTabItemEntity newTabItem = new
+                FormTabItemEntity(); newTabItem.setPageUrl("链接地址"); newTabItem.setTabName("名称"); //........
+                accessTabItems.add(newTabItem) ; } }}</br>
+        </td>
+    </tr>
+</table>
+<table>
+    <tr>
+        <td></td>
+    </tr>
+</table>
+<table>
+    <tr>
+        <td>hide-area-01</td>
+    </tr>
+</table>
+<table>
+    <tr>
+        <td>hide-area-02</td>
+    </tr>
+</table>
+<table>
+    <tr>
+        <td>x-toggle</td>
+    </tr>
+</table>
+<table>
+    <tr>
+        <td>'[C-MEETING-RECEIPT-0001]'=='[main.A0034]'||'[main.A0010]'=='[user.id]'</td>
+    </tr>
+</table>
+<table>
+    <tr>
+        <td>{{# if(DSF.array2key(d.data.maininfo["A0009"].values).value=="0"</br>   <p>1</p></br> {{# }else{ }}</br><p>
+            2</p></br> {{# } }}
+        </td>
+    </tr>
+</table>
+<table>
+    <tr>
+        <td> {{# if(DSF.array2key(d.subData["C-SLEADER-OPN-0004"].values).value=="-1"){ }}</br><p>1</p></br>{{# }else{
+            }}</br><p>2</p></br>{{# } }}
+        </td>
+    </tr>
+</table>
+<table>
+    <tr>
+        <td>统一回调:</br>function onTemplateCodeRendered($item , name){</br>}</br>按控件name回调:</br>function
+            onTemplateCodeRendered_test1($item){</br>}
+        </td>
+    </tr>
+</table>
+<table>
+    <tr>
+        <td>validateByList=1&listId=NestedForm&method=form</td>
+    </tr>
+</table>
+<table>
+    <tr>
+        <td>{"whereA":true}</td>
+    </tr>
+</table>
+<table>
+    <tr>
+        <td>{"ignorRowstate":true}</td>
+    </tr>
+</table>
+<table>
+    <tr>
+        <td>{</br>  //模块表.pk = table.fk and table.column = [value]</br>"table": "关联表名",</br>"fk": "关联表字段",</br>  "pk":
+            "当前模块关联字段，如果没有写就是ID",  </br>"relation": [{</br>"column": "关联表过滤字段名",</br>"value": "参数支持常量及[orgId]"</br>
+            }],</br>"where": [{</br>"column": "STATUS",</br>"value": "0",</br>"condExp": "="</br>}, {</br>"column":
+            "ID",</br>"value": "[parentid]",</br>"condExp": "<>"</br>}, {</br>"column": "ORGID_LV1",</br>"value":
+            "userOrgLV1()",</br>     "defaultValue": "默认值",</br>"condExp": "=", //支持 =、<>、>、>=、<、<</br>"defaultCondExp":
+            "默认查询条件", </br>"type": "exp" //支持const(常量)、exp（表达式）、config(取g_config表中的值)</br>}],</br>"whereA": true,
+            //是否过滤module_id参数</br>"order": "CREATE_TIME desc" //排序支持多个</br>}
+        </td>
+    </tr>
+</table>
+<table>
+    <tr>
+        <td>{"type":"action","method":"xxxx"} //method接口方法名</br>在java类中输出 json格式（参考上面json）</br>支持sql直接输出</br>{“sql”:“
+            sql相关条件”}</br></br>import com.alibaba.fastjson.JSONObject;import
+            org.springframework.stereotype.Component;import xsf.IContextDictionary;</br>
+            @Component("List_1806221120553FDbHmGkNEw3ertIn4z") public class List_1806221120553FDbHmGkNEw3ertIn4z {
+            public JSONObject xxx(IContextDictionary dictionary){ JSONObject obj = new JSONObject() ; obj.put("a","bb")
+            ; return obj ; }}
+        </td>
+    </tr>
+</table>
+<table>
+    <tr>
+        <td>实现一种多个模块之间（可以理解多个表）关系查询的问题</br>可以参考 “业务基础数据模块（勿动）” 下 “已办文件”列表</br></br>点击设置</br></br>可以配置多个</br></br>
+            列表项选择</br></br>  </td>
+    </tr>
+</table>
+<table>
+    <tr>
+        <td>业务基础数据模块（勿动）</br>【G_INFOS】文件基本信息</br>文件授权</br>【G_UFILES】同一个文件一个人只会有一条记录</br>待办信息</br>【G_INBOX】待办文件信息</td>
+    </tr>
+</table>
+<table>
+    <tr>
+        <td>如果原来列表不是跨模块关联,需要清除列表项记录</br>Delete from g_list_item WHERE list_id='列表id'</br>
+            数据扩展还可以用，但需要加别名</br>        </br></br>前端js，获取数据也需要加别名 （debugger看看数据集）</br>      </br></td>
+    </tr>
+</table>
+<table>
+    <tr>
+        <td>[{</br>"name": "参数1",</br>"key": "param1",</br>"remark": "参数名称描述"</br>}]</td>
+    </tr>
+</table>
+<table>
+    <tr>
+        <td></br>    var param1 = funParams["param1"],param2 = funParams["param2"] ;</br>    alert(param1 + "*" +
+            param2);</br>};</br>其中funParams就注入设置的参数信息值
+        </td>
+    </tr>
+</table>
+<table>
+    <tr>
+        <td>Webapp/项目ID/模块ID/js/列表ID.js</td>
+    </tr>
+</table>
+<table>
+    <tr>
+        <td></td>
+    </tr>
+</table>
+<table>
+    <tr>
+        <td>layui.dataGridUtil.beforeLoadDataGrid = function(key,opts){</br>    opts.metas["A0009"]["radio"] = true
+            ;</br>    opts.metas["A0009"]["optionNotEmptyValue"] = true ;</br>    opts.metas["C-WAGES-068"].defaultValue
+            = "" ;</br>}
+        </td>
+    </tr>
+</table>
+<table>
+    <tr>
+        <td>layui.dataGridUtil.beforeQueryDataGrid = function(data,tableObject){</br>   //其中data包含查询数据</br>};</td>
+    </tr>
+</table>
+<table>
+    <tr>
+        <td>layui.dataGridUtil.afterRenderDataGrided = function (target,opts) {};</td>
+    </tr>
+</table>
+<table>
+    <tr>
+        <td>layui.dataGridUtil.toolbarTpl = function(rowData,template,renderHtml){</br>    return renderHtml ;
+            //显示操作行的html</br>};
+        </td>
+    </tr>
+</table>
+<table>
+    <tr>
+        <td>此模板是借鉴layui模板引擎 开始 {{# 结束}}</br>{{# if(d["FYMK.S-DISTRIB-USER-0006"]==1){ }}</br>未阅</br>{{# }else
+            if(d["FYMK.FS-DISTRIB-USER-0006"]==2){ }}</br>已阅</br>{{# }else{ }}</br>已发布</br>{{# } }}</br></br>
+            如果只是简单if判断</br>{{d["FYMK.S-DISTRIB-USER-0006"] == "1" ? '未阅' : '已阅'}}</br></td>
+    </tr>
+</table>
+<table>
+    <tr>
+        <td>//当前人</br>currentName()</br>//当前人ID</br>currentUserId()</br>//当前部门Id</br>currentDeptId()</br>//当前部门</br>
+            currentDept()</br>//当前子机构ID</br>currentUnitId()</br>//当前子机构名称</br>currentUnit()</br>//用户所在一级部门</br>
+            userOrgLV1()</br>//当前日期</br>now()</br>//当前日期时间</br>datetime()</br>//用户移动电话</br>currentTel()</br>
+            //用户固定电话</br>currentFixedPhone()</br>//时间段 支持参数 year,month,week,,thisYear(本年度）,afterToday(今天及以后)</br>
+            timeBetween(year) //返回结果 2018-11-06 - 2019-11-06</br></td>
+    </tr>
+</table>
+<table>
+    <tr>
+        <td>//常量</br>{"type" : "const" , "value" : "1,2"}</br>//函数，可以是自定义函数</br>{"type" : "exp" , "value" :
+            "request(fwdw)"  </br>//g_config表中的 config_code字段</br>{"type" : "config" , "value" : "SYS-SYS-0002"}</br>
+            //对于数字过滤默认：开始-结束 中间用“-”隔开</br>{"type" : "const" , "value" : "1-200"}</br>//对于日期过滤默认值 开始 - 结束 中间用“ - ”隔开</br>
+            {"type" : "const" , "value" : "2019-01-01 - 2019-12-31"}
+        </td>
+    </tr>
+</table>
+<table>
+    <tr>
+        <td> //日期控件 使用年过滤</br>{"type" : "date" , "value" : "yyyy"}  </br>{"type" : "date" , "value" : "yyyy-MM"}</td>
+    </tr>
+</table>
+<table>
+    <tr>
+        <td> //获取选中的行ID</br>dataGrid.getIDList(); //[id1,id2....]</br>//获取checkbox选中行的行数据</br>
+            dataGrid.getCheckboxDatas(); //[row1,row2......]</br>//获取radio选中的行数据</br>dataGrid.getRadioData();
+            //{key1:value1,.......}</br>//重新加载列表 </br>//参数clearCheckbox true:清空选中行 false:保留选中行</br>
+            dataGrid.reloadDatGrid();</br>//设置选中行</br>dataGrid.setRowCheckbox(); // {rowid:{....}，rowid2:{......}}</br>
+            //查询 clearCheckbox true:清空选中行 false:保留选中行</br>dataGrid.queryDataGrid();</br>//获取查询条件内容</br>
+            dataGrid.queryWhere();</br>//增加行</br>dataGrid.addRow();
+        </td>
+    </tr>
+</table>
+<table>
+    <tr>
+        <td>后台代码：</br>@Component("List_190313151208mxUh2ioQTsDSnsXC5Js")public class
+            List_190313151208mxUh2ioQTsDSnsXC5Js extends BaseCustomList { //此方法主要是可以定义一些列表需要的常量，让前端js直接调用 @Override
+            public JSONObject initDataGridParam(User user, IContextDictionary dictionary) { JSONObject initParam = new
+            JSONObject() ; initParam.put("exchangeVendor", ExchangeUtil.getVendor()) ; //厂商
+            initParam.put("innerExchangeVendor", ExchangeUtil.getInnerVendor()) ; //内部厂商 return initParam ; }</br>
+            //些方法用于查询后台返回的数据，可以额外扩展数据信息.如合计什么的 @Override public JSONObject queryDataGridParam(User user,
+            IContextDictionary dictionary) { JSONObject qParam = new JSONObject() ; qParam.put("url",
+            ExchangeUtil.getExchangeServer()) ; //厂商 JSONObject data = new JSONObject(); data.put("k1","1") ;
+            data.put("k2","2") ; qParam.put("data",data) ; return qParam ; }}
+        </td>
+    </tr>
+</table>
+<table>
+    <tr>
+        <td>列表返回JSON格式</br>{</br>"code": "",</br>"data": [{</br>      .........</br>"A0022.schema": "",</br>
+            "A0010.value": "1806272111466YKnnpehGanb4BSENvL",</br>"C-R-RCV-0004.value": "教育部",</br>"B0001":
+            "0801老发文远程发送",</br>"A0025.value": "宏观政策处"</br>}],</br>"count": 2,</br>"qParam": {</br>"data": {</br>"k1":
+            "1",</br>"k2": "2"</br>},</br>"url": "....."</br>}</br>}</br>主要增加 qParam 这个节点
+        </td>
+    </tr>
+</table>
+<table>
+    <tr>
+        <td> //取配置列表 initDataGridParam方法定义的数据</br>
+            alert(JSON.stringify(layui.dataGridUtil.getParam("innerExchangeVendor")));</br></br></br>//取查询结果集扩展数据，</br>
+            layui.dataGridUtil.afterRenderDataGrided = function (target,opts) {</br>
+            alert(JSON.stringify(layui.dataGridUtil.getQParam("data")));</br>};中使用</br></td>
+    </tr>
+</table>
+<table>
+    <tr>
+        <td>@Component("List_180726211007WCqjA6vmtasdas")public class List_180726211007WCqjA6vmtasdas extends
+            BaseCustomList{ @Override public Boolean validate(User user, String pk, Map
+            <String
+            , String> params) {</br>//true 正常打开，返回false 没有权限防问 return true; }}
+        </td>
+    </tr>
+</table>
+<table>
+    <tr>
+        <td>@Component("List_180726211007WCqjA6vmtasdas")public class List_180726211007WCqjA6vmtasdas extends
+            BaseCustomList{ public Map
+            <String
+            , String> viewList(Map
+            <String
+            , String> params) {</br>//这个就是打开查看节点的表单 params.put("nodeId", FlowConstants.NODE_VIEW); params.put("flowId",
+            FlowConstants.FLOW_COMMON_ID); params.put("result", "true"); return params; }}</br></td>
+    </tr>
+</table>
+<table>
+    <tr>
+        <td>layui.dataGridButton.listRow = function (elem, data, datagrid, rowPkMetaKey, funParams) { var pk =
+            data[rowPkMetaKey]; //listId 对应 类List_ 后面的值 //method 对应 类的方法名 //pk 对应业务数据主键 var url = DSF.getURLRoot() +
+            "ctrl/formControl/form?listId=180726211007WCqjA6vmtasdas&method=viewList&moduleId=180805175628RK7ixI1IyrjDuG4njD5&pk="
+            + pk; window.open(url);};
+        </td>
+    </tr>
+</table>
+<table>
+    <tr>
+        <td>(function (window, $) { window.CustomDataGrid = window.CustomDataGrid || {} ; //自定义
+            window.CustomDataGrid.events = window.CustomDataGrid.events || {} ; //绑定事件 window.CustomDataGrid.callback =
+            window.CustomDataGrid.callback || {} ; //回调 /** * 重写头模板 * @returns {} *** 对应1号位置 */
+            window.CustomDataGrid.tplTitleTpl = function(){ return '
+            <div>{{d.data.title}}</div>
+            ' ; }; /** * 重写查询内容 * @returns {string} 对应2号位置 */ window.CustomDataGrid.tplSearchTpl = function(){ return [
+            '
+            <div class="layui-inline">', '<input class="layui-input search-input" name="_content""请输入检索内容"
+                value="{{qContent}}" autocomplete="off">', '<span class="search-span"><i
+                        class="icon icon-search"></i></span>', '
+            </div>
+            ', '
+            <button class="layui-btn list-btn layui-btn-default query-btn" type="button">检索111</button>
+            ', '
+            <button class="layui-btn list-btn layui-btn-primary query-clear" type="button">重置</button>
+            ', '
+            <button class="layui-btn list-btn layui-btn-default more-text-click"
+            "button">更多查询</button>' ].join(''); }; /** * 重写过滤 *** 对应3位位置 * @returns {string} */
+            window.CustomDataGrid.tplFilterTpl = function(){ return [ '
+            <div class="list-screen-show layui-form">', '{{# var filters = d.data.filters,_cols = 0; }}', '{{#
+                layui.each(filters, function(index, item){ }}', '{{# var tempLen = _cols + item.cols,newRow = index == 0
+                || tempLen > 12 ;}}', '{{# if(newRow){ _cols = item.cols; }}', '{{# if(index > 0){ }}', '
+            </div>
+            <div class="layui-row hide more">', '{{# }else { }}', '
+                <div class="layui-row">', '{{# } }}', '{{# } }}', CustomDataGrid.getFilterTplColumn(), '{{# }); }}', '
+                </div>
+                ', ].join(''); }; window.CustomDataGrid.events = { moreClick:function(dataGridObj){ //自已按钮绑定事件 var that
+                = dataGridObj ; that.queryFormElem.on('click',".more-text-click",function(e){ var moreEle = $(this); var
+                filterElement = that.filterListEle.find("div.filter-list") ; if(filterElement.length == 1){
+                if(filterElement.is(":visible")){ filterElement.hide(); moreEle.html("更多查询"); }else{
+                filterElement.show(); moreEle.html("隐藏查询"); } that.table.fullSize(); }else{ var text = moreEle.html();
+                moreEle.html("隐藏查询" == text ? "更多查询" : "隐藏查询"); } e.stopPropagation(); }); } };
+                window.CustomDataGrid.callback = {  </br>//控件选择回调-- 对应4位位置
+                controlChooseFilterCallback:function(dataGridObject,component){ //控制选择过滤
+                dataGridObject.queryFormElem.find("div.more-text-click").html("隐藏查询"); } } ;})(window, $);</br></br>
+        </td>
+    </tr>
+</table>
+<table>
+    <tr>
+        <td>//Controller 继承 BaseController</br>视图view 换成 viewDataGrid</br> view = viewDataGrid("p1000/datagrid/list")
+            ;</br></br>//jsp 视图模板增加 </br><!-- 自定义扩展列表样式 开始-->${includeCustomResource}<!-- 自定义扩展列表样式 结束--></br></br>
+            如图：</br></td>
+    </tr>
+</table>
+<table>
+    <tr>
+        <td>列表配置: 如果两个都选择。可以通过url 传filterMode 来区分 (1普通 2京东)</br></td>
+    </tr>
+    <tr>
+        <td></td>
+    </tr>
+</table>
+<table>
+    <tr>
+        <td>列表项配置: </br> </br></br>1、常量：多行用回车分割。一行数据用,隔开 id,text 如：</br>     </br>   值1,文本1</br>   值2,文本2</br>
+            ..........</br></br>code模式: code,code对应的id 如:</br>      </br>code,181120180106HnZBYeGYN7H6eZmeth0</br></br>
+            action模式： action,beanname 如</br></br>action,tt</br>         </br>@Service("tt")public class TT implements
+            CustomControlDataSource { @Override public List
+            <Map
+            <String
+            , Object>> List
+            <Map
+            <String
+            , Object>> list = new ArrayList<>(); Map
+            <String
+            ,Object> data = new HashMap<>() ; data.put("value","1") ; data.put("text","测试文本") ; list.add(data) ; data =
+            new HashMap<>() ; data.put("value","1333") ; data.put("text","测试文本333") ; list.add(data) ; return list;
+            }}</br></br></br>         </br></td>
+    </tr>
+</table>
+<table>
+    <tr>
+        <td></br>  时间格式: 开始时间 - 结束时间</br>  如果想按照年过滤</br></br>   </br></br></td>
+    </tr>
+</table>
+<table>
+    <tr>
+        <td>//可以做联动</br>layui.use(['jquery', 'layer', 'form', 'element'], function(){
+            //-----------------start-------------------------------- window.DSF.Control.User.Extend = { "CS-ZHB-0007":{
+            //元数据 opts:{ "multiple":false, //用户属性 },events:{ beforeOpen:function(target,opts,isFilter,rowData){ //打开之前事件
+            //自定义根（与表单控件联动） opts["extendOpt"] = { "customRoot":"180627211146kvt9gFekZIxpF5Gm6xh" } ; return true ;
+            //true正常打开 false直接结束，可以做一些提示打开之前的校验 },saveCallback:function(target,ids,texts,schema,isFilter,rowDat){
+            //用户选择后的保存事件 } } } }; //-----------------end--------------------------------});
+        </td>
+    </tr>
+</table>
+<table>
+    <tr>
+        <td>//可以做联动</br>window.DSF.Control.Code.Extend = { "CS-ZHB-0010":{ //元数据 opts:{ "multiple":false, //代码属性
+            },events:{ beforeOpen:function(target,opts,isFilter,rowData){ //打开之前事件 //动态改变opts属性
+            //alert("beforeOpen..."); return true ; //true正常打开 false直接结束，可以做一些提示打开之前的校验
+            },saveCallback:function(target,ids,texts,isFilter,rowDat){ //alert("saveCallback..."); //代码选择后的保存事件 } }
+            }};</br></td>
+    </tr>
+</table>
+<table>
+    <tr>
+        <td>需要配置三个书签（公文域）：</br>正文开始 正文文件 正文结束</td>
+    </tr>
+</table>
+<table>
+    <tr>
+        <td></br>注意：</br>服务地址在请求后台会自动加上pk和userId。支持[key]动态传参数</br>如果是我们本身2.0系统，需要把后台请求的页面加入到
+            config/security.properties</br>增加basepath配置</br>
+            <Add Key="PRINT_INTERFACE_SERVICE_URL" Value="http://192.168.1.159:8080/DreamWeb"></br>主要解决域名配置访问地址，无法访问应用
+        </td>
+    </tr>
+</table>
+<table>
+    <tr>
+        <td>@RestController</br>@RequestMapping("/xxClass")</br>public class XXXController extends BaseController {</br>
+            @RequestMapping({"/xxMethod"})</br> public JSONArray xxMethod(HttpServletRequest request) {</br>JSONArray
+            array = new JSONArray();</br></br>//详细参考 BookMarkEntity 说明</br>//支持的宏：回车、居左、居右、上一行等等</br>array.add(new
+            BookMarkEntity(BookmarkType.IMG,"书签","路径")) ;</br>array.add(new BookMarkEntity("文本书签","文本内容")) ;</br>
+            array.add(new BookMarkEntity("","当前光标位置插入文本内容")) ;</br>        array.add(new
+            BookMarkEntity(BookmarkType.GOTO,"书签")); //定位书签</br></br></br>return array ;</br>}</br>}
+        </td>
+    </tr>
+</table>
+<table>
+    <tr>
+        <td>subIndex^元数据A^元数据B</td>
+    </tr>
+</table>
+<table>
+    <tr>
+        <td>{</br>"style": {</br>"nodeName": {</br>"fontColor": "255"</br>},</br>"else": {</br>"fontColor": "0"</br>
+            }</br>},</br>"appendix": {</br>"count": "2", //超过count显示另附 </br>"moreText": "会签另附页", //意见另附名称</br>
+            "moreTitle":"司局会签xxx" //另附页显示标题</br>}</br>}
+        </td>
+    </tr>
+</table>
+<table>
+    <tr>
+        <td>xxx(意见书签)另附开始 </br>     xxx(意见书签)另附意见</br>xxx(意见书签)另附结束</td>
+    </tr>
+</table>
+<table>
+    <tr>
+        <td>将DSOA放到指定目录，如C:\Program Files\DSOA</br>修改C:\Program Files\DSOA\DS_CheckTrayOffice.exe.config配置文件
+            (后面提供统一配置，理论上不用关心)</br>       <?xml version="1.0" encoding="utf-8" ?></br>
+            <configuration></br>
+                <appSettings></br>
+                    <add key="JGtime" value="600"/><!--单位秒，10分钟--></br>
+                    <add key="MaxLogSize" value="102400"/><!--单位K，100M--></br>
+                    <add key="ServiceName" value="DS_Tray_Spirit"/>
+                    </br>
+                    <add key="ExePath" value="C:\Program Files\DSOA\DS_Tray_Spirit.exe"/>
+                    </br>
+                    <add key="LogPath" value="C:\Program Files\DSOA\"/>
+                    </br>
+                    <add key="UpdateUrl" value="http://127.0.0.1:8080/DreamWeb/tool/office/"/>
+                    </br>
+                    <add key="MaxUploadFailedCount" value="30"/><!--最大上传失败重试次数--></br>  </appSettings>
+                </br></configuration>
+            </br>      </br>JGtime exe异常关闭情况下，自启动的时间</br>ExePath exe所在全路径</br>LogPath 日志所在目录</br>UpdateUrl
+            检查服务器是不是有最新版本，配置服务器地址</br></br>启动OfficeTray服务</br>       C:\Program Files\DSOA\DS_CheckTrayOffice.exe
+        </td>
+    </tr>
+</table>
+<table>
+    <tr>
+        <td>1、客户端日志路径: </br>C:\Program Files\DSOA\DS_Tray_Spirit_Log\xxx.log</br>2、服务器端与exe通信路径:</br>平台系统配置临时路径+
+            upload\temp\xml\数字文件 （可以清空所有文件，重新操作会在这个目录下生成文件）</br>3、不能同时安装wps和word （不要绿色版本），需要卸载一个。</br>
+            把两个文件给开发人员，检查一下相关信息。如果分析不了可以与平台沟通。</br>4、在线编辑现在会定时（1h）将本地的日志存放到服务器（word_edit.vm）</br>路径地址： 附件存储配置信息 +
+            DS_Tray\子机构id\用户id\xxxx.log</br></br></td>
+    </tr>
+</table>
+<table>
+    <tr>
+        <td>tool/wps/jsplugins.xml </br></br></td>
+    </tr>
+</table>
+<table>
+    <tr>
+        <td>tool/wps/oaassist.7z </br></br>     此版本要与jsplugins.xml 要一致</br></td>
+    </tr>
+</table>
+<table>
+    <tr>
+        <td> 如果没有自动更新，需要手工删除本地文件，再重新打开wps</br>
+            C:\Users\Administrator.WIN-D4GOENMNRVF\AppData\Roaming\kingsoft\wps\jsaddons</br>  </br></td>
+    </tr>
+</table>
+<table>
+    <tr>
+        <td>本地打开wps     </br>Alt + F12 调试器</br></br>ctrl + p 打开搜索</br></br>      </td>
+    </tr>
+</table>
+<table>
+    <tr>
+        <td>http://192.168.1.180:8080/DreamWeb/tool/ntko/demo.jsp</br>根据实际情况ip和端口调整</td>
+    </tr>
+</table>
+<table>
+    <tr>
+        <td>系统配置，启用相关配置</br></td>
+    </tr>
+</table>
+<table>
+    <tr>
+        <td>@RequestMapping("/ofdDemo")</br>    public ModelAndView ofd() {</br>        //数科view</br>ModelAndView view =
+            view("p1000/module/office/suwellOfd-office");</br></br>        JSONObject data = new JSONObject();</br></br>
+            //下载ofd文件</br>        data.put("downloadFile","") ;</br>//如果只读，可以不传这个参数</br>
+            //data.put("uploadFile","") ;</br></br>        //打印相关参数</br>        JSONObject print = new
+            JSONObject();</br>        //份号</br>        print.put("code","GT-2019-10-10") ;</br>//份数</br>
+            print.put("num","10") ;</br></br>        //打印相关位置属性--这一块请详细看数科文档</br>        JSONObject printAttr = new
+            JSONObject();</br>        printAttr.put("pages","0") ;</br>printAttr.put("fontFamily","宋体") ;</br>
+            printAttr.put("fontSize",10) ;</br>printAttr.put("fontColor","0000FF") ;</br>
+            printAttr.put("posX",10) ;</br>printAttr.put("posY",10) ;</br>        printAttr.put("width",400) ;</br>
+            printAttr.put("height",200) ;</br>        print.put("attr",printAttr) ;</br></br>
+            data.put("print",print) ;</br></br></br>//水印</br>        JSONObject watermark = new JSONObject();</br>
+            watermark.put("text","水印文字") ;</br></br>        JSONObject watermarkAttr = new JSONObject();</br>
+            watermarkAttr.put("pages","0") ;</br>        watermarkAttr.put("fontFamily","宋体") ;</br>
+            watermarkAttr.put("fontSize",10) ;</br>watermarkAttr.put("fontColor","0000FF") ;</br>
+            watermarkAttr.put("posX",150) ;</br>watermarkAttr.put("posY",10) ;</br>
+            watermarkAttr.put("width",400) ;</br>watermarkAttr.put("height",200) ;</br></br>
+            watermark.put("attr",watermarkAttr) ;</br></br>data.put("watermark",watermark) ;</br></br>
+            //打印回调</br>        data.put("callback","回调链接") ;</br></br>        view.addObject("data",data) ;</br></br>
+            return view ;</br>    }
+        </td>
+    </tr>
+</table>
+<table>
+    <tr>
+        <td>{</br>"downloadFile": "ofd下载地址",</br>"uploadFile": "上传地址，如果只读不需要此属性",</br>"print": {</br>"code":
+            "打印份号",</br>"num": "打印份数",</br>"attr": {</br>"pages": "0",</br>"fontFamily": "宋体",</br>"fontSize": 10,</br>
+            "fontColor": "0000FF",</br>"posX": 10,</br>"posY": 10,</br>"width": 400,</br>"height": 200</br>}</br>},</br>
+            "watermark": {</br>"text": "水印文字",</br>"attr": {</br>"pages": "0",</br>"fontFamily": "宋体",</br>"fontSize":
+            10,</br>"fontColor": "0000FF",</br>"posX": 150,</br>"posY": 10,</br>"width": 400,</br>"height": 200</br>
+            }</br>},</br>"callback": "打印回调"</br>}
+        </td>
+    </tr>
+</table>
+<table>
+    <tr>
+        <td>是否启动水印</br></br>水印文字设置</br></br>格式：</br>"watermark": {</br>"text": "{orgNameLV1} {orgNameLV2}
+            {userSN}",</br>"attr": {</br>"fontSize": 15,</br>"fontFamily": "方正小标宋",</br>           "fontColor":
+            "DFDFDF"</br>}</br>}</br>    其中显示文字支持:
+            orgNameLV1、orgNameLV2、orgNameLV3、orgNameLV4、orgNameLV5、userName、userSN（用户工号）、fh(只有公文交换ofd打印启作用)
+        </td>
+    </tr>
+</table>
+<table>
+    <tr>
+        <td>common.js</br>(function (window, $) { window.Public = window.Public || {} ; window.Public.openPDF =
+            function(fileName,fileId,moduleId,isDown,opts){ }; })(window, $);
+        </td>
+    </tr>
+</table>
+<table>
+    <tr>
+        <td>common.js</br>(function (window, $) { window.Public = window.Public || {} ; Public.customOpenOfficeWindow =
+            function(url,isWindowSystem,isIE){ alert(isWindowSystem + "*" + isIE + "*" + url ); };</br>    })(window,
+            $);
+        </td>
+    </tr>
+</table>
+<table>
+    <tr>
+        <td>1、菜单入口</br></br>2、控件注册关键属性</br></br>说明：</br>控件编码：系统英文唯一（映射控件bean 名称）</br></br>如</br></br>
+            属性配置模板：表单控件相关配置属性，如图</br></br>JSON格式</br>[{</br>"field": "attachType", //属性名称（代码用）</br>"fieldName":
+            "上传按钮显示名称:", //显示名称如上图</br>"describe ": "",</br>"defaultValue": "", //默认值</br>"rangeCode": "",</br>
+            "control": "controlTextBox"</br>}]</br></br>细节通过SQL查看数据库已存在（对着相关控件查看）</br>SELECT property_template FROM
+            g_control WHERE property_template IS NOT NULL AND property_template LIKE '%controlRadio%'; </br></td>
+    </tr>
+</table>
+<table>
+    <tr>
+        <td></br></br>数据库存储格式：</br></br>其中 xpath就是你表单设计中配置的 {xxxx}</td>
+    </tr>
+</table>
+<table>
+    <tr>
+        <td>控件代码实例</br>package cn.dreamit.p1000.test;import cn.dreamit.dreamweb.control.base.BaseControl;import
+            cn.dreamit.dreamweb.control.constant.ControlConstants;import
+            cn.dreamit.dreamweb.control.constant.ControlValueEntry;import
+            cn.dreamit.dreamweb.control.util.ControlHelper;import
+            cn.dreamit.p1000.module.metadata.entity.BusinessDataEntity;import
+            cn.dreamit.p1000.module.metadata.entity.MetaDataStructEntity;import
+            cn.dreamit.p1000.module.metadata.entity.RowMetaDataEntity;import
+            org.springframework.beans.factory.config.ConfigurableBeanFactory;import
+            org.springframework.context.annotation.Scope;import org.springframework.stereotype.Component;import
+            xsf.IContextDictionary;import xsf.io.IOut;import xsf.web.ui.IPage;/** * @Author: taolb * @Date: 2020/2/28
+            10:46 */@Scope(ConfigurableBeanFactory.SCOPE_PROTOTYPE)@Component("controlTestControl")public class
+            TestControl extends BaseControl { /** * 渲染控件html片段 * @param page 表单上下文页（可以取到request,response等和web相关的对象） *
+            @param dict 表单字典 * @param datas 表单数据集 * @param row 控件所在行数据（控件有可能在子表行数据集合中） * @param out 输出器 */ @Override
+            public void //渲染控件HTML //继承父节点方法 super.doView(page, dict, datas, row, out); //
+            <xsf:out processor="controlUser" x="{'key':'B1005'}" config=""></xsf:out>
+            //取控件x属性 String key = x.getString("key") ; //取config属性 String xx = config.getString("xx") ;
+            //如果控件是绑定元数据，可以取元数据结构数据 MetaDataStructEntity entity = this.controlMetaData(); //如果控件是绑定元数据，取值可以 String
+            itemText = ControlHelper.getDataValue(row, key, ControlValueEntry.TEXT); //取元数据：text 那个对应的数据库字段值 //html是用
+            velocity引擎 // velocityContext 可以vm模板中解析使用 xObject.put("key", key); velocityContext.put("x",
+            xObject.toString()); velocityContext.put("value", "....."); //平台控件文件
+            //dreamit-core/src/main/resources/runtime/control/layui/testcontrol.vm //项目组控件文件
+            //dreamit-web/src/main/resources/runtime/control/layui/项目id/testcontrol.vm /** * 三种状态对应权限设置 * 不可见：
+            testcontrol-hide.vm * 只读： testcontrol-view.vm * 可编辑: testcontrol.vm * */ renderState(out); //根据权限，会调用不同vm模板
+            } /** * 表单保存时，执行控件回调方法。根据实际情况（如果需要控件本身的功能，可以实现些方法） * @param datas 表单上下文数据（完整数据） * @param row
+            控件所在行数据（控件有可能在子表行数据集合中） * @param dict 表单字典 * @param obj 控件绑定数据集（JSON格式） * @return true成功 false失败 */
+            @Override public boolean //比如上传控件，它需要存在G_NR，拷贝文件等在这个地方做处理 return super.execute(datas, row, dict, obj); }}
+        </td>
+    </tr>
+</table>
+<table>
+    <tr>
+        <td>文本框控件 </br></br> 可编辑  </br></br> 只读    </br></br> 隐藏     </br></td>
+    </tr>
+</table>
+<table>
+    <tr>
+        <td></td>
+    </tr>
+</table>
+<table>
+    <tr>
+        <td>package cn.dreamit.p1001.functions;import cn.dreamit.dreamweb.expr.constant.ExprConstants;import
+            cn.dreamit.p1000.module.convert.constant.ConvertConstant;import
+            cn.dreamit.p1000.module.convert.expr.ConvertFunction;import
+            cn.dreamit.p1000.module.convert.functions.BaseConvertFunction;import
+            cn.dreamit.p1000.module.userinfo.entity.User;import org.springframework.stereotype.Component;import
+            xsf.IContextDictionary;import javax.servlet.http.HttpServletRequest;import java.util.HashMap;import
+            java.util.Map;/** * 类别转换自定义函数 * @Author: taolb * @Date: 2020/3/2 21:22
+            */@Component("customConvertFun_项目id")public class CustomConvertFunction implements BaseConvertFunction {
+            @Override public Map
+            <String
+            , ConvertFunction> getCustomFunctions() { Map
+            <String
+            , ConvertFunction> functions = new HashMap<>() ; /** * params 上下文数据 * args 函数本身参数 */
+            functions.put("XxxConvert", (args,params)-> { //上下文字典 IContextDictionary dictionary = (IContextDictionary)
+            params.get(ExprConstants.DICT_KEY) ; //request HttpServletRequest request = (HttpServletRequest)
+            params.get(ExprConstants.REQUEST_KEY) ; //用户信息 User user = (User) params.get(ConvertConstant.USER_KEY) ;
+            //参数 String param1 = (String) args.get(0); //返回值:字符串 、 com.alibaba.fastjson.JSONObject (格式对应元数据中字段标识 如
+            {"text":文本",value":"值"}) return "测试"; }) ; return functions; }}</br></td>
+    </tr>
+    <tr>
+        <td></td>
+    </tr>
+    <tr>
+        <td></td>
+    </tr>
+</table>
+<table>
+    <tr>
+        <td>http://localhost:8080/DreamWeb/ctrl/clear/clearDB?type=info</td>
+    </tr>
+</table>
+<table>
+    <tr>
+        <td>{</br>    "tabs": [</br>        {</br>            "tab": "todo",</br>            "source": "db",</br>"show":
+            "我的待办",</br>            "format": "todo",</br>            "ischeck": "0",</br>"privilege": ""</br>
+            },</br>        {</br>            "tab": "remote_doc_exchange",</br>"show": "待签公文",</br>            "format":
+            "remote_doc_exchange",</br>            "ischeck": "0",</br>"privilege": ""</br>        }</br>    ]</br>}
+        </td>
+    </tr>
+</table>
+<table>
+    <tr>
+        <td>
+            <ABSOLUTE_FILEPATH_HEAD>D:/rootpath/resource/flow/</ABSOLUTE_FILEPATH_HEAD>
+        </td>
+    </tr>
+</table>
+<table>
+    <tr>
+        <td>
+            <DBConnection cname="系统数据库"
+            </br>            name="dreamflow" </br>            type="mysql" </br>
+            url="jdbc:mysql://localhost:3306/dreamweb?characterEncoding=UTF8"</br>            user="root" </br>
+            password="root" </br>            initialSize="2"</br>            minIdle="1"</br>maxActive="20"</br>
+            maxWait="60000"</br>            timeBetweenEvictionRunsMillis="60000"</br>validationQuery="SELECT 'x'"</br>
+            testWhileIdle="true"</br>            testOnBorrow="true"</br>testOnReturn="false"</br>
+            poolPreparedStatements="true" </br>maxPoolPreparedStatementPerConnectionSize="20"/>
+        </td>
+    </tr>
+</table>
+<table>
+    <tr>
+        <td>
+            <DBConnection
+            </br>            name="dreamflow" </br>            type="mysql" </br>            jndi="jdbc/testjndi"/></br>
+        </td>
+    </tr>
+</table>
+<table>
+    <tr>
+        <td>
+            <Vendor></br>
+                <ID desc="厂商id"/>
+                </br>
+                <Name desc="厂商名称"/>
+                </br>
+                <Desc desc="厂商备注"/>
+                </br>
+                <APP></br>
+                    <ID desc="项目id">p1001</ID>
+                    </br>
+                    <Name desc="项目名称">DreamWeb</Name>
+                    </br>
+                    <Desc desc="项目备注">梦创国产化</Desc>
+                    </br></APP>
+                </br>
+                <Host desc="项目内网地址">http://localhost:8080/DreamWeb</Host>
+                </br>
+                <GInfoAction>admin_client/workflow/interface/dsoaNodeToDb.xml</GInfoAction>
+                </br>
+                <WInfoAction>admin_client/workflow/interface/wfDefineToDb.xml</WInfoAction>
+                </br>
+                <CallbackHref>http://localhost:8080/DreamWeb/wfSendCallback.jsp</CallbackHref>
+                </br>
+                <GInfoActionInterface>http://localhost:8080/DreamWeb/ctrl/flow/callback/instance?unitId={unitId}
+                </GInfoActionInterface>
+                </br>
+                <WInfoActionInterface>http://localhost:8080/DreamWeb/ctrl/flow/callback/definition?unitId={unitId}
+                </WInfoActionInterface>
+                </br></Vendor>
+        </td>
+    </tr>
+</table>
+<table>
+    <tr>
+        <td>@Component("Flow_190316140427ei4dhLyKFj8xMKKXKHs ")</br>public class Flow_190316140427ei4dhLyKFj8xMKKXKHs
+            extends BaseCustomFlow{</br>    public Map
+            <String
+            , String> findXForm (Map
+            <String
+            , String> params){</br>        params.put("formId ", "xxxxxx");</br>        return params;</br>    }</br>}
+        </td>
+    </tr>
+</table>
+<table>
+    <tr>
+        <td>@Component("Flow_common")</br>public class Flow_common extends BaseCustomFlow{</br>    public
+            CommandCollection afterSend(String pk, JSONArray nodeArray) {</br>        return new
+            CommandCollection();</br>    }</br>}
+        </td>
+    </tr>
+</table>
+<table>
+    <tr>
+        <td>@Component("Flow_common")</br>public class Flow_common extends BaseCustomFlow{</br>    public
+            CommandCollection afterSend(String pk, JSONArray nodeArray) {</br>        return new
+            CommandCollection();</br>    }</br>}
+        </td>
+    </tr>
+</table>
+<table>
+    <tr>
+        <td>##切到redis安装目录</br>cd /usr/zcb/redis-3.2.3/</br>##切到src目录下</br>cd src</br>##启动redis,其中redis.conf 是配置文件
+            端口，密码等等相关配置</br>redis-server /usr/zcb/redis-3.2.3/redis.conf</br>##设置默认数据库 默认是0</br>set db_number
+            库号[14]</br>##切换数据</br>select 库号</br>##清空当前数据库</br>flushdb</br>##清空所有数据库</br>flushall</br>##模糊查找key</br>keys
+            key前缀*</br>##获取指定的key的内容</br>get 指定的key</br>##删除指定的key</br>del 指定的key</br>##关闭redis</br>
+            shutdown</br></br></br></td>
+    </tr>
+</table>
+</body>
+</html>
