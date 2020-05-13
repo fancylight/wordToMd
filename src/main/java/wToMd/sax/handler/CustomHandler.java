@@ -6,13 +6,13 @@ import org.xml.sax.Attributes;
 import org.xml.sax.SAXException;
 import org.xml.sax.helpers.DefaultHandler;
 import wToMd.common.EventSource;
-import wToMd.doc.pic.PicXmlDefine;
 import wToMd.event.EventAccept;
 import wToMd.event.EventSend;
 import wToMd.event.EventType;
 import wToMd.sax.DataAccept;
 
 import java.util.List;
+import java.util.stream.Collectors;
 
 import static wToMd.doc.pic.PicXmlDefine.PIC_BLIPFILL_TAG;
 import static wToMd.doc.table.TableXmlDefine.TABLE_TAG;
@@ -63,29 +63,59 @@ public abstract class CustomHandler<T, U> extends DefaultHandler implements Data
     @Override
     public void startElement(String uri, String localName, String qName, Attributes attributes) throws SAXException {
         currentTag = qName;
-        EventType eventType = null;
+        EventType eventType = currentEvent;
+
         if (qName.equals(TABLE_TAG)) {//表单
             eventType = EventType.TABLEBEGIN;
         } else if (qName.equals(PIC_BLIPFILL_TAG)) {//图片
             eventType = EventType.PICBEGIN;
         }
-        fireEvent(eventType);
+        fireBeginEvent(eventType);
         eventSend.dealStartEle(uri, localName, qName, attributes, result);
     }
 
-    private void fireEvent(EventType eventType) {
+    private void fireBeginEvent(EventType eventType) {
+        //判断是否出现了内嵌情况
+        if (eventType != currentEvent && eventType != EventType.COMMON) {
+            if ((eventType.isBegin() && currentEvent.isBegin())) { //上一个事件未完成,即内嵌
+                //获取处理
+                changeAccept(eventType, currentEvent);
+            }
+        }
         currentEvent = eventType;
         eventSend.sendAll(eventType);
     }
 
+    /**
+     * 将处理器数据导向之前的处理器,完成内嵌功能
+     *
+     * @param eventType
+     * @param currentEvent
+     */
+    protected void changeAccept(EventType eventType, EventType currentEvent) {
+        List<EventAccept> nowParse = list.stream().filter(eventAccept -> eventAccept.support(currentEvent)).collect(Collectors.toList());
+        List<EventAccept> innerParse = list.stream().filter(eventAccept -> eventAccept.support(eventType)).collect(Collectors.toList());
+        innerParse.forEach(eventAccept -> nowParse.forEach(eventAccept1 -> eventAccept.changeDataAccept(eventAccept1)));
+    }
+
     @Override
     public void endElement(String uri, String localName, String qName) throws SAXException {
-        eventSend.dealEndEle(uri, localName, qName);
+
         //当标签结束,则将所有解析器数据源还原给当前
+        currentTag = qName;
+        EventType eventType = currentEvent;
         if (qName.equals(PIC_BLIPFILL_TAG)) { //图片处理结束
-            eventSend.sendAll(EventType.PICEND);
+            eventType = EventType.PICEND;
+        } else if (qName.equals(TABLE_TAG)) {//表格处理结束
+            eventType = EventType.TABLEEND;
         }
-        list.stream().filter(eventAccept -> eventAccept.support(currentEvent)).forEach(eventAccept -> eventAccept.changeDataAccept(this));
+        fireEndEvent(eventType);
+        eventSend.dealEndEle(uri, localName, qName);
+        list.forEach(eventAccept -> eventAccept.changeDataAccept(this));//由于标签闭合,因此还原数据源
+    }
+
+    protected void fireEndEvent(EventType eventType) {
+        eventSend.sendAll(eventType);
     }
 
     @Override

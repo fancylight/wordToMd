@@ -36,9 +36,11 @@ public abstract class AbstractParse<T extends ContextBuild> implements EventAcce
 
 
     @Override
-    public boolean support() {
+    public boolean support(boolean isBegin) {
         if (acceptEvent == null) //表示接受所有类型
             return true;
+        if (currentEvent.isBegin() != isBegin)
+            return false;
         for (EventType eventType : acceptEvent) {
             if (eventType == currentEvent)
                 return true;
@@ -107,5 +109,11 @@ public abstract class AbstractParse<T extends ContextBuild> implements EventAcce
     public void sendData() {
         Object o = buildTableResult();
         this.dataAccept.acceptData(o);
+    }
+    //------数据接收------------
+
+    @Override
+    public void acceptData(Object data) {
+
     }
 }

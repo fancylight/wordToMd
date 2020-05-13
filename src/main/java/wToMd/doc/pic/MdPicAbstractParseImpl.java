@@ -38,7 +38,7 @@ public class MdPicAbstractParseImpl extends AbstractParse<MdPicContextBuild> {
 
     @Override
     public void dealStartEle(String uri, String localName, String qName, Attributes attributes) {
-        if (!support())
+        if (!support(true))
             return;
         if (qName.endsWith(PicXmlDefine.A_BLIP)) { //遇到了图片引用标志
             String picRel = attributes.getValue(PicXmlDefine.A_BLIP);

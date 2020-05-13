@@ -5,7 +5,6 @@ import org.apache.commons.logging.LogFactory;
 import org.xml.sax.Attributes;
 import wToMd.common.CommonDefine;
 import wToMd.common.AbstractParse;
-import wToMd.doc.pic.PicXmlDefine;
 import wToMd.event.EventType;
 
 
@@ -77,7 +76,7 @@ public class MdTableAbstractParseImpl extends AbstractParse<TableHtmlContextBuil
      * @param attributes
      */
     public void dealStartEle(String uri, String localName, String qName, Attributes attributes) {
-        if (!support() && !isWork)
+        if (!support(true))
             return;
         if (qName.equals(TableXmlDefine.TABLE_TAG)) {//表单出现
             newBuild();
@@ -134,7 +133,7 @@ public class MdTableAbstractParseImpl extends AbstractParse<TableHtmlContextBuil
      */
     @Override
     public void endEle(String uri, String localName, String qName) {
-        if (!support() && !isWork)
+        if (!support(false))
             return;
         if (qName.equals(TableXmlDefine.TC_TAG)) {
             dealSimpleCell = false;
@@ -157,7 +156,7 @@ public class MdTableAbstractParseImpl extends AbstractParse<TableHtmlContextBuil
      */
     @Override
     public void dealText(String tag, String context) {
-        if (!support() && !isWork)
+        if (!support(false))
             return;
         if (dealSimpleCell) {
             if (tag.equals(CommonDefine.T)) {
@@ -169,11 +168,9 @@ public class MdTableAbstractParseImpl extends AbstractParse<TableHtmlContextBuil
 
     private boolean isWork = false;
 
+
     @Override
-    public boolean support() {
-        boolean eventSupport = super.support();
-        if (super.currentEvent == EventType.TABLEBEGIN)
-            isWork = true;
-        return eventSupport;
+    public void acceptData(Object data) {
+        super.acceptData(data);
     }
 }

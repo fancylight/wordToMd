@@ -7,7 +7,7 @@ import wToMd.sax.DataAccept;
 /**
  * 事件监听器接口
  */
-public interface EventAccept {
+public interface EventAccept extends DataAccept {
 
     //------事件处理--------------
     EventSource getEventSource();
@@ -16,7 +16,8 @@ public interface EventAccept {
 
     void acceptEvent(EventType eventType);
 
-    boolean support();
+    boolean support(boolean isBegin);
+
     boolean support(EventType eventType);
 
     //-------------处理三种情况元素-----------------

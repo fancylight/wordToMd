@@ -1,7 +1,5 @@
+import wToMd.event.EventType;
 import wToMd.sax.MdFrameWork;
-
-import java.io.FileInputStream;
-import java.io.FileNotFoundException;
 
 /**
  * <h3>wordToMd</h3>
@@ -17,5 +15,11 @@ public class Test {
         saxFrameWork.picPrefix = "__";
         saxFrameWork.parseDocxToMd("DreamWeb2.0开发文档(2)", "D:\\ck\\code\\wordToMd\\target\\test-classes\\word", this.getClass().getResourceAsStream("/word/_rels/document.xml.rels"),
                 this.getClass().getResourceAsStream("/word/document.xml"));
+    }
+
+    @org.junit.Test
+    public void test2() {
+        EventType eventType = EventType.TABLEBEGIN;
+        System.out.println(eventType.isBegin());
     }
 }

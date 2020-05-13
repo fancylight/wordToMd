@@ -2,7 +2,6 @@ package wToMd.rel.pic;
 
 import org.xml.sax.Attributes;
 import wToMd.common.AbstractParse;
-import wToMd.common.EventSource;
 import wToMd.common.PicResource;
 
 /**
@@ -30,7 +29,7 @@ public class RelPicAbstractParseImpl extends AbstractParse<RelPicParseBuild> {
 
     @Override
     public void dealStartEle(String uri, String localName, String qName, Attributes attributes) {
-        if (!support())
+        if (!support(true))
             return;
         if (qName.equals(RelPicXmlDefine.RELATIONSHIP_TAG)) {
             contextBuild = newBuild();
