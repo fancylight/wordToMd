@@ -1,20 +1,34 @@
 package wToMd.event;
 
 import org.xml.sax.Attributes;
+import wToMd.common.EventSource;
 import wToMd.sax.DataAccept;
 
+/**
+ * 事件监听器接口
+ */
 public interface EventAccept {
+
+    //------事件处理--------------
+    EventSource getEventSource();
+
+    void addEventSource(EventSource eventSource);
+
     void acceptEvent(EventType eventType);
 
     boolean support();
+    boolean support(EventType eventType);
 
+    //-------------处理三种情况元素-----------------
     void dealStartEle(String uri, String localName, String qName, Attributes attributes);
 
     void endEle(String uri, String localName, String qName);
 
     void dealText(String tag, String context);
 
-    void addDataAccept(DataAccept dataAccept);
+    //-------------数据发送--------------------
+    void changeDataAccept(DataAccept dataAccept);
 
-    void acceptData();
+    void sendData();
+
 }

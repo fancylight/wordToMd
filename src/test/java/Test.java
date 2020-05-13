@@ -1,5 +1,7 @@
-import wToMd.sax.MdHandler;
-import wToMd.sax.SaxFrameWork;
+import wToMd.sax.MdFrameWork;
+
+import java.io.FileInputStream;
+import java.io.FileNotFoundException;
 
 /**
  * <h3>wordToMd</h3>
@@ -10,7 +12,10 @@ import wToMd.sax.SaxFrameWork;
 public class Test {
     @org.junit.Test
     public void test() {
-        Object obj = SaxFrameWork.parseDoc(this.getClass().getResourceAsStream("document.xml"), new MdHandler());
-        int a = 3;
+        MdFrameWork saxFrameWork = new MdFrameWork();
+        saxFrameWork.loadPicDir = "C:\\Users\\86150\\Desktop\\temp";
+        saxFrameWork.picPrefix = "__";
+        saxFrameWork.parseDocxToMd("DreamWeb2.0开发文档(2)", "D:\\ck\\code\\wordToMd\\target\\test-classes\\word", this.getClass().getResourceAsStream("/word/_rels/document.xml.rels"),
+                this.getClass().getResourceAsStream("/word/document.xml"));
     }
 }

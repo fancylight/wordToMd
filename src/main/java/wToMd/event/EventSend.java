@@ -1,6 +1,7 @@
 package wToMd.event;
 
 import org.xml.sax.Attributes;
+import wToMd.common.EventSource;
 
 import java.util.List;
 
@@ -13,8 +14,9 @@ import java.util.List;
 public class EventSend {
     private List<EventAccept> list;
 
-    public EventSend(List<EventAccept> list) {
+    public EventSend(List<EventAccept> list, EventSource eventSource) {
         this.list = list;
+        list.forEach(eventAccept -> eventAccept.addEventSource(eventSource));
     }
 
     public void sendAll(EventType eventType) {
@@ -29,7 +31,7 @@ public class EventSend {
         list.forEach(eventAccept -> eventAccept.dealText(tag, context));
     }
 
-    public void dealEndEle(String uri, String localName, String qName, StringBuilder result) {
+    public void dealEndEle(String uri, String localName, String qName) {
         list.forEach(eventAccept -> eventAccept.endEle(uri,localName,qName));
     }
 }
