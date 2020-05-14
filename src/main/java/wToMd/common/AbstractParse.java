@@ -39,7 +39,7 @@ public abstract class AbstractParse<T extends ContextBuild> implements EventAcce
     public boolean support(boolean isBegin) {
         if (acceptEvent == null) //表示接受所有类型
             return true;
-        if (currentEvent.isBegin() != isBegin)
+        if (currentEvent == null || currentEvent.isBegin() != isBegin) //null表示进行一般情况
             return false;
         for (EventType eventType : acceptEvent) {
             if (eventType == currentEvent)

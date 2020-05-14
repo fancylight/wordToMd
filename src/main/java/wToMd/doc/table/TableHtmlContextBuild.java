@@ -1,5 +1,6 @@
 package wToMd.doc.table;
 
+import wToMd.common.CommonSymbol;
 import wToMd.common.ContextBuild;
 
 import java.util.*;
@@ -22,7 +23,7 @@ public class TableHtmlContextBuild implements ContextBuild<String> {
     public static final String E_TR = "</tr>";
 
     public TableHtmlContextBuild() {
-        tableHtml.append(B_TABLE);
+        tableHtml.append(B_TABLE).append(CommonSymbol.commonLine);
     }
 
     /**
@@ -42,7 +43,7 @@ public class TableHtmlContextBuild implements ContextBuild<String> {
         if (cellMap.get(row) == null) {
             cellMap.put(row, new ArrayList());
         }
-        Cell cell= new Cell(cellRow, cellCol);
+        Cell cell = new Cell(cellRow, cellCol);
         cellMap.get(row).add(cell);
     }
 
@@ -76,13 +77,13 @@ public class TableHtmlContextBuild implements ContextBuild<String> {
      */
     public String build() {
         buildCell();
-        tableHtml.append(E_TABLE);
+        tableHtml.append(E_TABLE).append(CommonSymbol.commonLine);
         return tableHtml.toString();
     }
 
     private void buildCell() {
         cellMap.forEach((row, cellList) -> {
-            tableHtml.append(B_TR);
+            tableHtml.append(B_TR).append(CommonSymbol.commonLine);
             cellList.forEach(cell -> {
                 if (!cell.isRowMerged()) {
                     int rowMerge = cell.getRowMerge();
@@ -93,31 +94,40 @@ public class TableHtmlContextBuild implements ContextBuild<String> {
                     } else if (colMerge != 0) {
                         tableHtml.append(" colspan=" + colMerge);
                     }
-                    tableHtml.append(">");
+                    tableHtml.append(">").append(CommonSymbol.commonLine);
                     //数据,或许需要一定处理
                     String data = cell.getData().toString();
                     data = data.replaceAll("\n", "<br/>");
                     tableHtml.append(data);
                     //
-                    tableHtml.append("</td>");
+                    tableHtml.append("</td>").append(CommonSymbol.commonLine);
                 }
             });
-            tableHtml.append(E_TR);
+            tableHtml.append(E_TR).append(CommonSymbol.commonLine);
         });
     }
 
     /**
-     * 仅仅只有一个cell的表单
+     * 仅仅为单列的表单
      *
      * @return
      */
     public boolean isSimpleCellTable() {
         int row = cellMap.size();
         if (row == 1) {
-            List<Cell> list = cellMap.get(1);
-            if (list != null && list.size() == 1)
-                return true;
+            return true;
         }
         return false;
+    }
+
+    /**
+     * 失败构造
+     *
+     * @return
+     */
+    public String buildFailure() {
+        tableHtml = new StringBuilder();
+        cellMap.forEach((row, cellList) -> cellList.forEach(cell -> tableHtml.append(cell.getData())));
+        return tableHtml.toString();
     }
 }

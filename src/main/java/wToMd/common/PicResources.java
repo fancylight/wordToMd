@@ -3,7 +3,7 @@ package wToMd.common;
 import org.apache.commons.io.FileUtils;
 import org.apache.commons.logging.Log;
 import org.apache.commons.logging.LogFactory;
-import wToMd.doc.pic.MdPicAbstractParseImpl;
+import wToMd.doc.pic.MdPicParseImpl;
 
 import java.io.File;
 import java.io.IOException;
@@ -30,7 +30,7 @@ public class PicResources {
      * 将图片拷贝到指定的文件路径
      * <p>
      * 根据指定参数将图片拷贝到特定的文件夹,同时可以赋予图片新的名称,并且将{@link PicResource#getPicUrl()}改变为拷贝的新路径,
-     * 该新值会被后文中的{@link MdPicAbstractParseImpl}使用
+     * 该新值会被后文中的{@link MdPicParseImpl}使用
      *
      * @param picDir 拷贝目的地
      * @param prefix 新图片名称前缀

@@ -3,7 +3,7 @@ package wToMd.sax.handler;
 
 import wToMd.common.PicResource;
 import wToMd.common.PicResources;
-import wToMd.rel.pic.RelPicAbstractParseImpl;
+import wToMd.rel.pic.RelPicParseImpl;
 
 import java.io.File;
 import java.util.stream.Collectors;
@@ -32,7 +32,7 @@ public class PicHandler extends CustomHandler<PicResource, PicResources> {
 
     @Override
     protected void initParseList() {
-        this.list = Stream.of(new RelPicAbstractParseImpl()).collect(Collectors.toList());
+        this.list = Stream.of(new RelPicParseImpl()).collect(Collectors.toList());
     }
 
     /**

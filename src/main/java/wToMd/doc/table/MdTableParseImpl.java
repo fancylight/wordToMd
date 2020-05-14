@@ -5,6 +5,7 @@ import org.apache.commons.logging.LogFactory;
 import org.xml.sax.Attributes;
 import wToMd.common.CommonDefine;
 import wToMd.common.AbstractParse;
+import wToMd.common.CommonSymbol;
 import wToMd.event.EventType;
 
 
@@ -14,17 +15,17 @@ import wToMd.event.EventType;
  * @author : ck
  * @date : 2020-05-11 16:11
  **/
-public class MdTableAbstractParseImpl extends AbstractParse<TableHtmlContextBuild> {
-    Log log = LogFactory.getLog(MdTableAbstractParseImpl.class);
+public class MdTableParseImpl extends AbstractParse<TableHtmlContextBuild> {
+    Log log = LogFactory.getLog(MdTableParseImpl.class);
 
-    public MdTableAbstractParseImpl() {
+    public MdTableParseImpl() {
     }
 
-    public MdTableAbstractParseImpl(boolean isInner) {
+    public MdTableParseImpl(boolean isInner) {
         super(isInner);
     }
 
-    public MdTableAbstractParseImpl(Class<TableHtmlContextBuild> contextBuildClass, boolean isInner) {
+    public MdTableParseImpl(Class<TableHtmlContextBuild> contextBuildClass, boolean isInner) {
         super(contextBuildClass, isInner);
     }
 
@@ -38,9 +39,14 @@ public class MdTableAbstractParseImpl extends AbstractParse<TableHtmlContextBuil
      * @return
      */
     public String buildTableResult() {
-        String htmlTable = contextBuild.build();
+        String htmlTable;
+        if (!cellFailure)
+            htmlTable = contextBuild.build();
+        else {
+            htmlTable= this.contextBuild.buildFailure();
+        }
         clear();
-        return htmlTable;
+        return htmlTable+CommonSymbol.commonLine;
     }
 
     @Override
@@ -62,6 +68,7 @@ public class MdTableAbstractParseImpl extends AbstractParse<TableHtmlContextBuil
         colCount = 0;
         dealSimpleCell = false;
         pCount = 0;
+        cellFailure = false;
     }
 
     private int rowCount;
@@ -133,19 +140,17 @@ public class MdTableAbstractParseImpl extends AbstractParse<TableHtmlContextBuil
      */
     @Override
     public void endEle(String uri, String localName, String qName) {
-        if (!support(false))
-            return;
         if (qName.equals(TableXmlDefine.TC_TAG)) {
             dealSimpleCell = false;
         }
+        if (!support(false))
+            return;
         if (qName.equals(TableXmlDefine.TABLE_TAG)) {//表达结束,尝试构建数据
             //判断是否为一行一列,如果满足条件,那么说明这tm不是表格(sber玩意)
             if (this.contextBuild.isSimpleCellTable()) {//放弃
-                clear();
-                return;
+                cellFailure = true;
             }
             String re = buildTableResult();
-            isWork = false;
             dataAccept.acceptData(re);
         }
     }
@@ -156,7 +161,7 @@ public class MdTableAbstractParseImpl extends AbstractParse<TableHtmlContextBuil
      */
     @Override
     public void dealText(String tag, String context) {
-        if (!support(false))
+        if (!support(true))
             return;
         if (dealSimpleCell) {
             if (tag.equals(CommonDefine.T)) {
@@ -166,11 +171,20 @@ public class MdTableAbstractParseImpl extends AbstractParse<TableHtmlContextBuil
         }
     }
 
-    private boolean isWork = false;
+    private boolean cellFailure = false;
 
-
+    /**
+     * 基本出现在tc内部,也就是说这部分数据要合并到{@link Cell#getData()}部分
+     * <p>
+     * 若发生了内嵌,那么说明该table不仅仅当作table使用了,目前仅仅考虑被内部镶嵌了图片
+     * 当table结束后,就要不进行table构建过程,而是使用特别的构建方式
+     *
+     * @param data
+     */
     @Override
     public void acceptData(Object data) {
-        super.acceptData(data);
+        cellFailure = true;
+        Cell cell = this.contextBuild.getInsertingCell(rowCount);
+        cell.getData().append(CommonSymbol.commonLine).append(data);
     }
 }

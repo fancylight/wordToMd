@@ -23,7 +23,7 @@ public class EventSend {
         list.forEach(eventAccept -> eventAccept.acceptEvent(eventType));
     }
 
-    public void dealStartEle(String uri, String localName, String qName, Attributes attributes, StringBuilder result) {
+    public void dealStartEle(String uri, String localName, String qName, Attributes attributes) {
         list.forEach(eventAccept -> eventAccept.dealStartEle(uri, localName, qName, attributes));
     }
 

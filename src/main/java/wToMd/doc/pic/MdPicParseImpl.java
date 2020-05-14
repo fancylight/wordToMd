@@ -4,6 +4,7 @@ import org.apache.commons.logging.Log;
 import org.apache.commons.logging.LogFactory;
 import org.xml.sax.Attributes;
 import wToMd.common.AbstractParse;
+import wToMd.common.CommonSymbol;
 import wToMd.common.PicResources;
 import wToMd.event.EventType;
 
@@ -13,17 +14,33 @@ import wToMd.event.EventType;
  * @author : ck
  * @date : 2020-05-13 15:41
  **/
-public class MdPicAbstractParseImpl extends AbstractParse<MdPicContextBuild> {
+public class MdPicParseImpl extends AbstractParse<MdPicContextBuild> {
     private PicResources picResources;
-    private static Log log = LogFactory.getLog(MdPicAbstractParseImpl.class);
+    private static Log log = LogFactory.getLog(MdPicParseImpl.class);
 
-    public MdPicAbstractParseImpl(PicResources picResources) {
+    public MdPicParseImpl(PicResources picResources) {
         this.picResources = picResources;
     }
 
-    public MdPicAbstractParseImpl(PicResources picResources, boolean isInner) {
+    public MdPicParseImpl(PicResources picResources, boolean isInner) {
         super(isInner);
         this.picResources = picResources;
+    }
+
+    public PicResources getPicResources() {
+        return picResources;
+    }
+
+    public void setPicResources(PicResources picResources) {
+        this.picResources = picResources;
+    }
+
+    @Override
+    protected MdPicContextBuild newBuild() {
+        contextBuild = super.newBuild();
+        if (contextBuild == null)
+            contextBuild = new MdPicContextBuild();
+        return contextBuild;
     }
 
     @Override
@@ -33,7 +50,7 @@ public class MdPicAbstractParseImpl extends AbstractParse<MdPicContextBuild> {
 
     @Override
     public String buildTableResult() {
-        return contextBuild.build();
+        return contextBuild.build()+ CommonSymbol.commonLine;
     }
 
     @Override
@@ -41,8 +58,9 @@ public class MdPicAbstractParseImpl extends AbstractParse<MdPicContextBuild> {
         if (!support(true))
             return;
         if (qName.endsWith(PicXmlDefine.A_BLIP)) { //遇到了图片引用标志
-            String picRel = attributes.getValue(PicXmlDefine.A_BLIP);
+            String picRel = attributes.getValue(PicXmlDefine.R_EMBED);
             String url = picResources.getPicResource(picRel).getPicUrl();
+            newBuild();
             if (url == null) {
                 log.warn(String.format("尝试获取%s引用图片失败,请检查", picRel), new RuntimeException());
             }

@@ -10,15 +10,15 @@ import wToMd.common.PicResource;
  * @author : ck
  * @date : 2020-05-13 11:29
  **/
-public class RelPicAbstractParseImpl extends AbstractParse<RelPicParseBuild> {
-    public RelPicAbstractParseImpl() {
+public class RelPicParseImpl extends AbstractParse<RelPicParseBuild> {
+    public RelPicParseImpl() {
     }
 
-    public RelPicAbstractParseImpl(boolean isInner) {
+    public RelPicParseImpl(boolean isInner) {
         super(isInner);
     }
 
-    public RelPicAbstractParseImpl(Class<RelPicParseBuild> contextBuildClass, boolean isInner) {
+    public RelPicParseImpl(Class<RelPicParseBuild> contextBuildClass, boolean isInner) {
         super(contextBuildClass, isInner);
     }
 

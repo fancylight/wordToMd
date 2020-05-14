@@ -21,5 +21,6 @@ public class Test {
     public void test2() {
         EventType eventType = EventType.TABLEBEGIN;
         System.out.println(eventType.isBegin());
+        System.out.println(1+System.getProperty("line.separator")+2);
     }
 }
