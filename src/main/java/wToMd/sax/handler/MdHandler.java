@@ -1,9 +1,11 @@
 package wToMd.sax.handler;
 
 
+import wToMd.common.AbstractParse;
 import wToMd.common.PicResources;
 import wToMd.doc.pic.MdPicParseImpl;
 import wToMd.doc.table.MdTableParseImpl;
+import wToMd.doc.title.MdParagraphParseImpl;
 
 import java.util.stream.Collectors;
 import java.util.stream.Stream;
@@ -24,13 +26,13 @@ public class MdHandler extends CustomHandler<String, String> {
         this.mdName = mdName;
         this.picLoadDir = picLoadDir;
         this.picResources = picResources;
-        ((MdPicParseImpl)this.list.get(1)).setPicResources(picResources);
+        ((MdPicParseImpl) this.list.get(1)).setPicResources(picResources);
     }
 
     @Override
     protected void initParseList() {
         //表单
-        this.list = Stream.of(new MdTableParseImpl(), new MdPicParseImpl(picResources)).collect(Collectors.toList());
+        this.list = Stream.of(new MdTableParseImpl(), new MdPicParseImpl(picResources),new MdParagraphParseImpl()).collect(Collectors.toList());
     }
 
     @Override
@@ -39,7 +41,7 @@ public class MdHandler extends CustomHandler<String, String> {
     }
 
     @Override
-    public void acceptData(String data) {
+    public void acceptData(String data, AbstractParse abstractParse) {
         stringBuffer.append(data);
     }
 }

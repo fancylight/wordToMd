@@ -15,8 +15,9 @@ import java.util.List;
 import java.util.Stack;
 import java.util.stream.Collectors;
 
-import static wToMd.doc.pic.PicXmlDefine.PIC_BLIPFILL_TAG;
-import static wToMd.doc.table.TableXmlDefine.TABLE_TAG;
+import static wToMd.doc.pic.PicXmlDefine.*;
+import static wToMd.doc.table.TableXmlDefine.*;
+import static wToMd.doc.title.ParagraphDefine.*;
 
 /**
  * <h3>wordToMd</h3>
@@ -68,6 +69,8 @@ public abstract class CustomHandler<T, U> extends DefaultHandler implements Data
             eventType = EventType.TABLEBEGIN;
         } else if (qName.equals(PIC_BLIPFILL_TAG)) {//图片
             eventType = EventType.PICBEGIN;
+        } else if (qName.equals(P_TAG)) {
+            eventType = EventType.PBEGIN;
         }
         fireBeginEvent(eventType);
         eventSend.dealStartEle(uri, localName, qName, attributes);
@@ -115,29 +118,39 @@ public abstract class CustomHandler<T, U> extends DefaultHandler implements Data
             eventType = EventType.PICEND;
         } else if (qName.equals(TABLE_TAG)) {//表格处理结束
             eventType = EventType.TABLEEND;
+        } else if (qName.equals(P_TAG)) {
+            eventType = EventType.PENG;
         }
-        fireEndEvent(eventType);
-        eventSend.dealEndEle(uri, localName, qName);
-
+        fireEndEvent(eventType, uri, localName, qName);
     }
 
-    protected void fireEndEvent(EventType eventType) {
+    protected void fireEndEvent(EventType eventType, String uri, String localName, String qName) {
         if (eventTypeStack.size() == 0) {
             if (eventType == null) {
                 eventSend.sendAll(null);
+                eventSend.dealEndEle(uri, localName, qName);
             } else {
                 log.warn("未出现对应的开始事件" + eventType, new RuntimeException());
             }
             return;
         }
-        if (eventType == null) {
+        if (eventType == null) { //没有遇到结束事件,继续保持当前事件类型
             eventType = eventTypeStack.peek();
-        } else {
+            eventSend.sendAll(eventType);
+            eventSend.dealEndEle(uri, localName, qName);
+        } else {//碰到对应结束类型,应该触发其结束事件
             EventType eventTypePre = eventTypeStack.pop();
             log.info(String.format("结束事件%s,弹出对应开始事件%s", eventType, eventTypePre));
-            list.forEach(eventAccept -> eventAccept.changeDataAccept(this));//由于标签闭合,因此还原数据源
+            eventSend.sendAll(eventType);
+            eventSend.dealEndEle(uri, localName, qName);
+            //还原当前结束事件的解析器数据接收者
+            revertData(eventType);
         }
-        eventSend.sendAll(eventType);
+
+    }
+
+    private void revertData(final EventType eventType) {
+        list.stream().filter(eventAccept -> eventAccept.support(eventType)).forEach(eventAccept -> eventAccept.changeDataAccept(this));
     }
 
     @Override

@@ -1,6 +1,7 @@
 package wToMd.sax.handler;
 
 
+import wToMd.common.AbstractParse;
 import wToMd.common.PicResource;
 import wToMd.common.PicResources;
 import wToMd.rel.pic.RelPicParseImpl;
@@ -41,7 +42,7 @@ public class PicHandler extends CustomHandler<PicResource, PicResources> {
      * @param data
      */
     @Override
-    public void acceptData(PicResource data) {
+    public void acceptData(PicResource data, AbstractParse abstractParse) {
         picResources.addResource(data.getWordResId(), data);
         String url = data.getPicUrl();
         data.setPicUrl(docDir + File.separator + File.separator + url);

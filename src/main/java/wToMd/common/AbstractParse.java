@@ -108,12 +108,12 @@ public abstract class AbstractParse<T extends ContextBuild> implements EventAcce
     @Override
     public void sendData() {
         Object o = buildTableResult();
-        this.dataAccept.acceptData(o);
+        this.dataAccept.acceptData(o, this);
     }
     //------数据接收------------
 
     @Override
-    public void acceptData(Object data) {
+    public void acceptData(Object data, AbstractParse abstractParse) {
 
     }
 }

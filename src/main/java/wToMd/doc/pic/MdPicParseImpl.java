@@ -65,13 +65,15 @@ public class MdPicParseImpl extends AbstractParse<MdPicContextBuild> {
                 log.warn(String.format("尝试获取%s引用图片失败,请检查", picRel), new RuntimeException());
             }
             contextBuild.insertMdPic(url, "");
-            sendData();
+
         }
     }
 
     @Override
     public void endEle(String uri, String localName, String qName) {
-
+        if (!support(false))
+            return;
+        sendData();
     }
 
     @Override

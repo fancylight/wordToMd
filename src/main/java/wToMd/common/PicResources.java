@@ -45,6 +45,7 @@ public class PicResources {
                 String newDocPic = picDir + File.separator + prefix + picName;
                 log.info(String.format("拷贝%s到%s", docPic, picDir));
                 FileUtils.copyFile(new File(docPic), new File(newDocPic));
+                picResource.setPicUrl(newDocPic);
                 log.info("拷贝正确");
             } catch (IOException e) {
                 e.printStackTrace();

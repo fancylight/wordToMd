@@ -4,6 +4,8 @@ import wToMd.common.CommonSymbol;
 import wToMd.common.ContextBuild;
 
 import java.util.*;
+import java.util.regex.Matcher;
+import java.util.regex.Pattern;
 
 /**
  * <h3>wordToMd</h3>
@@ -97,7 +99,7 @@ public class TableHtmlContextBuild implements ContextBuild<String> {
                     tableHtml.append(">").append(CommonSymbol.commonLine);
                     //数据,或许需要一定处理
                     String data = cell.getData().toString();
-                    data = data.replaceAll("\n", "<br/>");
+//                    data = data.replaceAll("\n", "<br/>");
                     tableHtml.append(data);
                     //
                     tableHtml.append("</td>").append(CommonSymbol.commonLine);
@@ -128,6 +130,50 @@ public class TableHtmlContextBuild implements ContextBuild<String> {
     public String buildFailure() {
         tableHtml = new StringBuilder();
         cellMap.forEach((row, cellList) -> cellList.forEach(cell -> tableHtml.append(cell.getData())));
-        return tableHtml.toString();
+        String outStr = tableHtml.toString();
+        StringBuilder stringBuilder = new StringBuilder();
+        //将outStr使用
+        String picRex = "!\\[.*?\\]\\(.*? \".*?\"\\)";
+        outStr = outStr.replaceAll("</br>", CommonSymbol.commonLine);
+        String[] out = outStr.split(picRex);
+        if (out.length > 1) {//分部分处理
+            stringBuilder.append(regexMatchPicStr(outStr, picRex));
+        } else {
+            stringBuilder.append("```").append(CommonSymbol.commonLine).append(out[0]).append("```").append(CommonSymbol.commonLine);
+        }
+        return stringBuilder.toString();
+    }
+
+    private String regexMatchPicStr(String src, String regex) {
+        StringBuilder stringBuilder = new StringBuilder();
+        Matcher matcher = Pattern.compile(regex).matcher(src);
+        int startIndex = 0;
+        List<String> list = new ArrayList();
+        int extraCharCount = 0;
+        while (matcher.find(startIndex)) {
+            String target = matcher.group();
+            list.add(target);
+            int targetStartIndex = matcher.start();
+            int targetEndIndex = matcher.end();
+            //添加正则匹配前的数据
+            String temp = src.substring(startIndex, targetStartIndex==0?0: targetStartIndex - 1);
+            if (temp != null && !temp.equals(""))
+                appendCodeSymbol(stringBuilder, temp);
+            //添加正则数据
+            stringBuilder.append(target).append(CommonSymbol.commonLine);
+            startIndex = targetEndIndex;
+        }
+
+        String temp = src.substring(startIndex + extraCharCount);
+        if (temp != null && !temp.equals(""))
+            appendCodeSymbol(stringBuilder, temp);
+        return stringBuilder.toString();
+    }
+
+//    private final int len = 6 + CommonSymbol.commonLine.length();
+
+    private void appendCodeSymbol(StringBuilder stringBuilder, String str) {
+        stringBuilder.append("```").append(CommonSymbol.commonLine).append(str).append("```").append(CommonSymbol.commonLine);
+//        return len;
     }
 }

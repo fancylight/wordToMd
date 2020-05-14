@@ -3,9 +3,10 @@ package wToMd.doc.table;
 import org.apache.commons.logging.Log;
 import org.apache.commons.logging.LogFactory;
 import org.xml.sax.Attributes;
-import wToMd.common.CommonDefine;
 import wToMd.common.AbstractParse;
 import wToMd.common.CommonSymbol;
+import wToMd.doc.pic.MdPicParseImpl;
+import wToMd.doc.title.MdParagraphParseImpl;
 import wToMd.event.EventType;
 
 
@@ -43,10 +44,10 @@ public class MdTableParseImpl extends AbstractParse<TableHtmlContextBuild> {
         if (!cellFailure)
             htmlTable = contextBuild.build();
         else {
-            htmlTable= this.contextBuild.buildFailure();
+            htmlTable = this.contextBuild.buildFailure();
         }
         clear();
-        return htmlTable+CommonSymbol.commonLine;
+        return htmlTable + CommonSymbol.commonLine;
     }
 
     @Override
@@ -66,15 +67,11 @@ public class MdTableParseImpl extends AbstractParse<TableHtmlContextBuild> {
         contextBuild = null;
         rowCount = 0;
         colCount = 0;
-        dealSimpleCell = false;
-        pCount = 0;
         cellFailure = false;
     }
 
     private int rowCount;
     private int colCount;
-    private boolean dealSimpleCell;
-    private int pCount;
 
     /**
      * @param uri
@@ -94,9 +91,7 @@ public class MdTableParseImpl extends AbstractParse<TableHtmlContextBuild> {
             return;
         }
         if (qName.equals(TableXmlDefine.TC_TAG)) { //新的cell,即列增加
-            dealSimpleCell = true;
             colCount++;
-            pCount = 0;
             this.contextBuild.insertCell(rowCount, rowCount, colCount);
             log.info("创建 行" + rowCount + "列" + colCount + " cell");
             return;
@@ -119,16 +114,6 @@ public class MdTableParseImpl extends AbstractParse<TableHtmlContextBuild> {
             cell.setColsMerge(Integer.valueOf(attributes.getValue("w:val")));
             return;
         }
-        if (dealSimpleCell) {
-            Cell cell = this.contextBuild.getInsertingCell(rowCount);
-            if (qName.equals(CommonDefine.P)) {//出现一行
-                pCount++;
-                if (pCount > 1) {
-                    cell.getData().append("</br>");
-                }
-                return;
-            }
-        }
     }
 
     /**
@@ -140,9 +125,6 @@ public class MdTableParseImpl extends AbstractParse<TableHtmlContextBuild> {
      */
     @Override
     public void endEle(String uri, String localName, String qName) {
-        if (qName.equals(TableXmlDefine.TC_TAG)) {
-            dealSimpleCell = false;
-        }
         if (!support(false))
             return;
         if (qName.equals(TableXmlDefine.TABLE_TAG)) {//表达结束,尝试构建数据
@@ -150,8 +132,7 @@ public class MdTableParseImpl extends AbstractParse<TableHtmlContextBuild> {
             if (this.contextBuild.isSimpleCellTable()) {//放弃
                 cellFailure = true;
             }
-            String re = buildTableResult();
-            dataAccept.acceptData(re);
+            sendData();
         }
     }
 
@@ -163,12 +144,6 @@ public class MdTableParseImpl extends AbstractParse<TableHtmlContextBuild> {
     public void dealText(String tag, String context) {
         if (!support(true))
             return;
-        if (dealSimpleCell) {
-            if (tag.equals(CommonDefine.T)) {
-                Cell cell = this.contextBuild.getInsertingCell(rowCount);
-                cell.getData().append(context);
-            }
-        }
     }
 
     private boolean cellFailure = false;
@@ -182,9 +157,14 @@ public class MdTableParseImpl extends AbstractParse<TableHtmlContextBuild> {
      * @param data
      */
     @Override
-    public void acceptData(Object data) {
-        cellFailure = true;
+    public void acceptData(Object data, AbstractParse abstractParse) {
         Cell cell = this.contextBuild.getInsertingCell(rowCount);
-        cell.getData().append(CommonSymbol.commonLine).append(data);
+        if (abstractParse instanceof MdPicParseImpl) {
+            cellFailure = true;
+            cell.getData().append(CommonSymbol.commonLine).append(data);
+        } else if (abstractParse instanceof MdParagraphParseImpl) {
+            //将p数据插入到当前cell的data中,把其中换行符号替换成</br>
+            cell.getData().append(((String) data).replaceAll(CommonSymbol.commonLine, "</br>"));
+        }
     }
 }

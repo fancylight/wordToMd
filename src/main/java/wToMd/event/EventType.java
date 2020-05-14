@@ -3,9 +3,9 @@ package wToMd.event;
 public enum EventType {
     TABLEBEGIN(true), TABLEEND(false), TRBEGIN(true), TABLETCBEGIN(true), TABLETCEND(true),
 
-    PICBEGIN(true),PICEND(false),
+    PICBEGIN(true), PICEND(false),
 
-    COMMON(true);
+    PBEGIN(true), PENG(false);
 
     private boolean isBegin;
 
@@ -20,4 +20,4 @@ public enum EventType {
     public void setBegin(boolean begin) {
         isBegin = begin;
     }
-    }
+}
